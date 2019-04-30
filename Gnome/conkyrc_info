@@ -1,0 +1,98 @@
+conky.config = {
+	alignment = 'bottom_left',
+	--gap_x = 10,
+	--gap_y = 28,
+
+	background = true,
+	border_width = 1,
+	draw_borders = false,
+	draw_graph_borders = false,
+	draw_outline = false,
+	draw_shades = false,
+	use_spacer = 'right',
+	stippled_borders = 2,
+
+	double_buffer = true,
+	no_buffers = true,
+	max_port_monitor_connections = 64,
+
+	maximum_width = 210,
+	max_user_text = 16384,
+	minimum_width = 210, 
+	minimum_height = 872,
+
+	out_to_console = false,
+	update_interval = 2,
+
+	-- wm_class_name = 'Conky',
+	own_window_colour = '2e3436',
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	own_window_transparent = false,
+	own_window_type = 'docked',
+	own_window = true,
+	own_window_argb_visual = true,
+	own_window_argb_value = 210,
+
+	uppercase = false,
+	use_xft = true,
+	xftalpha = 0.8,
+	font = 'Bitstream Vera Sans Mono:size=9',
+
+	cpu_avg_samples = 2,
+	net_avg_samples = 2,
+
+	default_color = '#88BBFF',
+	color0 = '#0077FF',
+	default_outline_color = '#0077FF',
+	default_shade_color = '#0077FF',
+
+	template0 = [[${font Open Sans:Bold:size=10}${color dodgerblue3}\1 ${hr 2}$color${font}${voffset 1}]],
+	template1 = [[\1 ${alignr\ 80}${fs_bar\ \1}]],
+	template2 = [[${\1 name \2}${alignr}${\1 \3 \2} %]],
+	template3 = [[${if_up \1}${template0 \2}\ndown $alignr ${downspeed \1}/s\nup $alignr ${upspeed \1}/s\ntotal down$alignr${totaldown \1}\ntotal up $alignr${totalup \1}$endif]],
+
+};
+
+conky.text = [[
+${template0 SYSTEM}
+Kernel $alignr $kernel
+Uptime $alignr $uptime
+Temprature $alignr ${acpitemp}°C
+Frequency $alignr ${freq}MHz
+
+${template0 CPU}
+${color0}Core 1:$color ${cpu cpu1}%$alignr${exec sensors | grep 'Core 0' | cut -c16-22 | sed '/^$/d'}
+${color0}Core 2:$color ${cpu cpu2}%$alignr${exec sensors | grep 'Core 1' | cut -c16-22 | sed '/^$/d'}
+${color0}1${cpugraph cpu1 16,80 dodgerblue3 dodgerblue3} $alignr 2${cpugraph cpu2 16,80 dodgerblue3 dodgerblue3}
+
+${template0 RAM}
+In use $alignr $mem
+Used $alignr$memeasyfree
+Buffers $alignr $buffers
+Cache $alignr $cached
+Swapped $alignr $swap
+${color0}${membar 16, 80} ${alignr 8} ${memgraph 16,80 dodgerblue3 dodgerblue3}
+
+${template3 eno1 ENO1}
+${color0}D${downspeedgraph eno1 16,80 dodgerblue3 dodgerblue3}${color0} $alignr U${upspeedgraph eno1 16,80 dodgerblue3 dodgerblue3}
+
+${template3 wlo1 WLO1}
+${color0}D${downspeedgraph wlo1 16,80 dodgerblue3 dodgerblue3}${color0} $alignr U${upspeedgraph wlo1 16,80 dodgerblue3 dodgerblue3}
+
+${template0 SSD/HDD}
+${color0}Read: $color${diskio_read}$alignr${color0}Write: $color${diskio_write}
+${color0}SSD$alignr$color${fs_used /}${color0}/$color${fs_size /}
+${color0}${fs_bar 16,80 /}${alignr}${color0}${diskiograph /dev/disk/by-uuid/5b4a6221-cef7-400f-b313-cf15da1be8d8 16,80 dodgerblue3 dodgerblue3}
+${color0}HDD$alignr$color${fs_used /home}${color0}/$color${fs_size /home}
+${color0}${fs_bar 16,80 /home}${alignr}${color0}${diskiograph /dev/disk/by-uuid/7d9e51a1-3fe9-4072-8bd2-3c0a233c811d 16,80 dodgerblue3 dodgerblue3}
+
+${template0 TOP}
+$color${font Open Sans:bold:size=8}CPU$font
+${template2 top 1 cpu}
+${template2 top 2 cpu}
+${template2 top 3 cpu}${voffset 5}
+$color${font Open Sans:bold:size=8}RAM$font
+${template2 top_mem 1 mem}
+${template2 top_mem 2 mem}
+${template2 top_mem 3 mem}
+]];
