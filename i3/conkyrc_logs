@@ -56,7 +56,7 @@ conky.config = {
 
 conky.text = [[
 ${template4 JOURNALCTL}
-${color}${font Open Sans:size=6}${exec journalctl -n50 --no-pager --no-hostname -q | grep -vif /home/joppe/.local/etc/conky_dmesg_blacklist | fold -w1100 | tail -n20}
+${color}${font Open Sans:size=6}${exec journalctl -n50 --no-pager --no-hostname -q | grep -vi UFW | fold -w1100 | tail -n20}
 
 ${template4 PACMAN}
 ${color}${font Open Sans:size=6}${exec tail -n10 /var/log/pacman.log | fold -w1100}
