@@ -7,3 +7,4 @@ note: the conky log block has the following logs:
 - journalctl with only ufw
 
 ![Conky setup in i3](https://joppeb.nl/afbeeldingen/conkysetup00.png)
+![Conky setup in Gnome](https://joppeb.nl/afbeeldingen/conkysetup01.png)
